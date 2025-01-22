@@ -137,7 +137,9 @@ def write_inventory(
             )
 
 
-def download_pdfs_from_csv(input_file: str, batch_size: int = 10) -> None:
+def download_pdfs_from_csv(
+    input_file: str, batch_size: int = 10, num_processes: int | None = None
+) -> None:
     """
     Download PDFs from URLs in CSV file using parallel processing.
 
@@ -147,12 +149,16 @@ def download_pdfs_from_csv(input_file: str, batch_size: int = 10) -> None:
         Path to input CSV file containing PMIDs and URLs
     batch_size : int, optional
         Size of URL batches for processing, by default 10
+    num_processes : int | None, optional
+        Number of processes to use for downloading, by default None
     """
+    if num_processes is None:
+        num_processes = cpu_count()
+
     setup_logging()
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    n_workers = cpu_count()
 
-    logging.info(f"Starting PDF downloads with {n_workers} workers")
+    logging.info(f"Starting PDF downloads with {num_processes} processes")
 
     # Read URLs from CSV
     url_batches: List[List[Tuple[int, str | None]]] = []
@@ -174,7 +180,7 @@ def download_pdfs_from_csv(input_file: str, batch_size: int = 10) -> None:
 
     # Process batches in parallel
     all_results = []
-    with ProcessPoolExecutor(max_workers=n_workers) as executor:
+    with ProcessPoolExecutor(max_workers=num_processes) as executor:
         future_to_batch = {
             executor.submit(process_url_batch, batch): batch
             for batch in url_batches

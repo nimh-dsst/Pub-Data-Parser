@@ -5,22 +5,22 @@ deposition statements
 
 import dotenv
 
-from .download import download_pdfs_from_csv
-from .ingest import get_all_pmids
-from .url import get_urls_from_pmids
-from .verify import (
-    validate_pdfs,
-    segregate_pdfs,
+# Load environment variables
+dotenv.load_dotenv()
+
+from .download import download_pdfs_from_csv  # noqa: E402
+from .ingest import get_all_pmids  # noqa: E402
+from .url import get_urls_from_pmids  # noqa: E402
+from .verify import (  # noqa: E402
     process_pdfs_parallel,
     segregate_hhs,
+    segregate_pdfs,
+    validate_pdfs,
 )
 
 __version__ = "0.1.0"
 __author__ = "Josh Lawrimore"
 __license__ = "CC0 1.0 Universal"
-
-# Load environment variables
-dotenv.load_dotenv()
 
 # Define public API
 __all__ = [
