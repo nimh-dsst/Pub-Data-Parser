@@ -29,7 +29,7 @@ touch .env
 
 Add your NCBI API key to the `.env` file:
 
-```
+```text
 NCBI_API_KEY=your_api_key_here
 ```
 
