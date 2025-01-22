@@ -1,0 +1,30 @@
+[project]
+name = "pub_data_parser"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "hatchling>=1.27.0",
+    "metapub>=0.5.12",
+    "pandas>=2.2.3",
+    "pypdf>=5.1.0",
+    "python-dotenv>=1.0.1",
+    "requests>=2.32.3",
+]
+
+[dependency-groups]
+dev = [
+    "black>=24.10.0",
+    "flake8>=7.1.1",
+    "ipython>=8.31.0",
+    "isort>=5.13.2",
+    "mypy>=1.14.1",
+    "pandas-stubs>=2.2.3.241126",
+    "types-requests>=2.32.0.20241016",
+    "types-tqdm>=4.67.0.20241221",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
