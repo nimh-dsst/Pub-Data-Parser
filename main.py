@@ -18,11 +18,11 @@ if __name__ == "__main__":
         download_dir="/data/NIMH_scratch/lawrimorejg/pub_data/pdfs",
         num_processes=1,
     )
-    validation: dict = validate_pdfs(directory=Path("pdfs"), num_processes=1)
+    validation: dict = validate_pdfs(directory=Path("/data/NIMH_scratch/lawrimorejg/pub_data/pdfs"), num_processes=1)
     segregate_pdfs(validation)
     process_pdfs_parallel(
         directory=Path("/data/NIMH_scratch/lawrimorejg/pub_data/pdfs"),
-        output_csv=Path("hhs_info.csv"),
+        output_csv=Path("./hhs_info.csv"),
         num_processes=1,
     )
     segregate_hhs(csv_path=Path("./hhs_info.csv"))

@@ -96,6 +96,8 @@ def process_url_batch(
     ----------
     urls : List[Tuple[int, str | None]]
         List of (PMID, URL) tuples to process
+    download_dir : str
+        Directory to save downloaded PDFs
 
     Returns
     -------
@@ -175,7 +177,7 @@ def download_pdfs_from_csv(
         for row in reader:
             pmid: int = int(row["pmid"])
             url: str | None = row.get("url")
-            current_batch.append((pmid, url, download_dir))
+            current_batch.append((pmid, url))
 
             if len(current_batch) >= batch_size:
                 url_batches.append(current_batch)
@@ -188,7 +190,7 @@ def download_pdfs_from_csv(
     all_results = []
     with ProcessPoolExecutor(max_workers=num_processes) as executor:
         future_to_batch = {
-            executor.submit(process_url_batch, batch): batch
+            executor.submit(process_url_batch, batch, download_dir): batch
             for batch in url_batches
         }
 
