@@ -87,7 +87,7 @@ def download_pdf(
 
 
 def process_url_batch(
-    urls: List[Tuple[int, str | None]]
+    urls: List[Tuple[int, str | None]], download_dir: str
 ) -> List[Tuple[int, str, bool]]:
     """
     Process a batch of URLs for PDF download.
@@ -105,7 +105,7 @@ def process_url_batch(
     results = []
     for pmid, url in urls:
         if url:  # Only process if URL exists
-            result = download_pdf(url, pmid)
+            result = download_pdf(url, pmid, download_dir)
         else:
             result = (pmid, "No URL available", False)
         results.append(result)
@@ -138,7 +138,10 @@ def write_inventory(
 
 
 def download_pdfs_from_csv(
-    input_file: str, batch_size: int = 10, num_processes: int | None = None
+    input_file: str,
+    batch_size: int = 10,
+    num_processes: int | None = None,
+    download_dir: str = "./pdfs",
 ) -> None:
     """
     Download PDFs from URLs in CSV file using parallel processing.
@@ -160,6 +163,9 @@ def download_pdfs_from_csv(
 
     logging.info(f"Starting PDF downloads with {num_processes} processes")
 
+    download_dir = Path(download_dir)
+    download_dir.mkdir(parents=True, exist_ok=True)
+
     # Read URLs from CSV
     url_batches: List[List[Tuple[int, str | None]]] = []
     current_batch: List[Tuple[int, str | None]] = []
@@ -169,7 +175,7 @@ def download_pdfs_from_csv(
         for row in reader:
             pmid: int = int(row["pmid"])
             url: str | None = row.get("url")
-            current_batch.append((pmid, url))
+            current_batch.append((pmid, url, download_dir))
 
             if len(current_batch) >= batch_size:
                 url_batches.append(current_batch)
