@@ -200,7 +200,7 @@ def writer_process(
         "error",
     ]
 
-    with open(output_file, "w", newline="") as f:
+    with open(output_file, "w", newline="", encoding="utf8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
 
@@ -292,7 +292,7 @@ def segregate_hhs(csv_path: Path) -> None:
     to 'unknown' dir.
     """
     # Read CSV
-    df = pd.read_csv(csv_path)
+    df = pd.read_csv(csv_path, encoding="utf8")
 
     # Get base directory from first file path
     first_path = Path(df["name"].iloc[0])

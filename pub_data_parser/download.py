@@ -130,7 +130,7 @@ def write_inventory(
     filename = f"pdf_inventory_{timestamp}.csv"
     fieldnames = ["pmid", "status", "success"]
 
-    with open(filename, "w", newline="") as f:
+    with open(filename, "w", newline="", encoding="utf8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         for pmid, status, success in results:
@@ -172,7 +172,7 @@ def download_pdfs_from_csv(
     url_batches: List[List[Tuple[int, str | None]]] = []
     current_batch: List[Tuple[int, str | None]] = []
 
-    with open(input_file, "r") as f:
+    with open(input_file, "r", encoding="utf8") as f:
         reader = csv.DictReader(f)
         for row in reader:
             pmid: int = int(row["pmid"])
