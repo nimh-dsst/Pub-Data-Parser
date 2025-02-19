@@ -173,7 +173,8 @@ cython_debug/
 # team-inserted gitignores
 .vscode/
 data/*/
-pdfs/
+old*/
+pdfs*/
 article_urls.csv
 hhs_info.csv
 pdf_inventory_*.csv
