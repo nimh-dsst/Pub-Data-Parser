@@ -101,7 +101,7 @@ async def process_pmids(
     """
     fieldnames = ["pmid", "url", "backup_url", "reason", "title"]
     Path(output_file).parent.mkdir(parents=True, exist_ok=True)
-    with open(output_file, "w", newline="") as f:
+    with open(output_file, "w", newline="", encoding="utf8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
 

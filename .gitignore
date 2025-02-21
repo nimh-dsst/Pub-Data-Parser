@@ -170,7 +170,13 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+# team-inserted gitignores
+.vscode/
 data/
+old*/
+pdfs*/
+article_urls.csv
+hhs_info.csv
+pdf_inventory_*.csv
 .DS_Store
 delme*
-pdfs/
