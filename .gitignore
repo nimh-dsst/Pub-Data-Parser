@@ -172,10 +172,12 @@ cython_debug/
 
 # team-inserted gitignores
 .vscode/
-data/*/
+data/
 old*/
 pdfs*/
 article_urls.csv
 hhs_info.csv
 pdf_inventory_*.csv
 uv.lock
+.DS_Store
+delme*
